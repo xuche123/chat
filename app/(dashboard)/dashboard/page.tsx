@@ -6,9 +6,9 @@ interface pageProps {
   
 }
 
-const page: FC<pageProps> = ({ }) => {
-  // const session = await getServerSession(authOptions)
-  return <div>asdf</div>
+const page = async ({ }) => {
+  const session = await getServerSession(authOptions)
+  return <div className='text-5xl text-center'>{session?.user.email}</div>
 }
 
 export default page

@@ -51,9 +51,10 @@ const AddFriend: FC<AddFriendProps> = ({ }) => {
 
   return (
     <form className='max-w-sm' onSubmit={handleSubmit(onSubmit)}>
+      <h2 className='text-lg font-semibold'>Add friend by email</h2>
       <div className="flex w-full max-w-sm items-center space-x-2">
         <Input {...register('email')} placeholder="Email" />
-        <button type='submit'>add</button>
+        <Button type='submit'>add</Button>
       </div>
       {success && <p className='text-green-500'>Friend request sent</p>}
     </form>

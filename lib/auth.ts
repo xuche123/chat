@@ -3,6 +3,7 @@ import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import { db } from "@/lib/db"
 import { UpstashRedisAdapter } from "@next-auth/upstash-redis-adapter"
+import { fetchRedis } from "@/helpers/redis"
 
 export const authOptions: NextAuthOptions = {
   adapter: UpstashRedisAdapter(db),
@@ -34,7 +35,14 @@ export const authOptions: NextAuthOptions = {
       return session
     },
     async jwt({ token, user }) {
-      const dbUser = await db.get(`user:${token.id}`) as User || null
+      const dbUserResult = (await fetchRedis('get', `user:${token.id}`)) as string | null
+
+      if (!dbUserResult) {
+        token.id = user?.id
+        return token
+      }
+
+      const dbUser = JSON.parse(dbUserResult) as User
 
       if (!dbUser) {
         if (user) {
