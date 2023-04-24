@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import FriendRequestsCount from "@/components/FriendRequestsCount"
 import { Icon, Icons } from "@/components/Icons"
+import MobileLayout from "@/components/MobileLayout"
 import SidebarChats from "@/components/SidebarChats"
 import SignOutButton from "@/components/SignOutButton"
 
@@ -48,6 +49,14 @@ const layout = async ({ children }: layoutProps) => {
 
   return (
     <div className="flex h-screen w-full">
+      <div className="md:hidden">
+        <MobileLayout
+          friends={friends}
+          session={session}
+          sidebarOptions={SidebarOptions}
+          unseenRequestCount={initialCount}
+        />
+      </div>
       <div className="hidden h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 md:flex">
         <Link href="/dashboard" className="flex h-16 shrink-0 items-center">
           <Icons.Logo className="h-8 w-auto text-indigo-600" />
@@ -123,7 +132,7 @@ const layout = async ({ children }: layoutProps) => {
           </ul>
         </nav>
       </div>
-      <aside className="max-h-screen w-full px-2 py-16 md:py-12">
+      <aside className="max-h-screen w-full px-2 pb-4 pt-16 md:pb-4 md:pt-12">
         {children}
       </aside>
     </div>
