@@ -26,11 +26,11 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
     try {
       await axios.post("/api/message/send", { text: input, chatId })
       setInput("")
-      textareaRef.current?.focus()
     } catch {
       toast.error("Something went wrong. Please try again later.")
     } finally {
       setIsLoading(false)
+      textareaRef.current?.focus()
     }
   }
 
@@ -46,11 +46,11 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
             }
           }}
           rows={1}
-          // minRows={3}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={`Message ${chatPartner.name}`}
           className="block w-full resize-none border-0 bg-transparent p-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:py-1.5 sm:text-sm sm:leading-6"
+          disabled={isLoading}
         />
       </div>
     </div>
