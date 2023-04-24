@@ -1,20 +1,25 @@
-'use client'
+"use client"
 
-import axios from 'axios'
-import { Check, UserPlus, X } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { FC, useState } from 'react'
+import { FC, useState } from "react"
+import { useRouter } from "next/navigation"
+import axios from "axios"
+import { Check, UserPlus, X } from "lucide-react"
 
 interface FriendRequestsProps {
   incomingFriendRequests: IncomingFriendRequest[]
   sessionId: string
 }
 
-const FriendRequests: FC<FriendRequestsProps> = ({incomingFriendRequests, sessionId }) => {
-  const [friendRequests, setFriendRequests] = useState<IncomingFriendRequest[]>(incomingFriendRequests)
+const FriendRequests: FC<FriendRequestsProps> = ({
+  incomingFriendRequests,
+  sessionId,
+}) => {
+  const [friendRequests, setFriendRequests] = useState<IncomingFriendRequest[]>(
+    incomingFriendRequests
+  )
   const router = useRouter()
   const acceptFriend = async (senderId: string) => {
-    await axios.post('/api/friends/accept', { id: senderId })
+    await axios.post("/api/friends/accept", { id: senderId })
 
     setFriendRequests((prev) =>
       prev.filter((request) => request.senderId !== senderId)
@@ -24,7 +29,7 @@ const FriendRequests: FC<FriendRequestsProps> = ({incomingFriendRequests, sessio
   }
 
   const denyFriend = async (senderId: string) => {
-    await axios.post('/api/friends/deny', { id: senderId })
+    await axios.post("/api/friends/deny", { id: senderId })
 
     setFriendRequests((prev) =>
       prev.filter((request) => request.senderId !== senderId)
@@ -36,25 +41,28 @@ const FriendRequests: FC<FriendRequestsProps> = ({incomingFriendRequests, sessio
   return (
     <>
       {friendRequests.length === 0 ? (
-        <p className='text-sm text-zinc-500'>Nothing to show here....</p>
-      ) : friendRequests.map((request) => (
-        <div key={request.senderId} className='flex gap-4 items-center'>
-          <UserPlus className='text-black' />
-          <p className='font-medium text-lg'>{request.senderEmail}</p>
-          <button
-            onClick={() => acceptFriend(request.senderId)}
-            className='w-8 h-8 bg-indigo-600 hover:bg-indigo-700 grid place-items-center rounded-full transition hover:shadow-md'>
-            <Check className='font-semibold text-white w-3/4 h-3/4' />
-          </button>
+        <p className="text-sm text-zinc-500">Nothing to show here....</p>
+      ) : (
+        friendRequests.map((request) => (
+          <div key={request.senderId} className="flex items-center gap-4">
+            <UserPlus className="text-black" />
+            <p className="text-lg font-medium">{request.senderEmail}</p>
+            <button
+              onClick={() => acceptFriend(request.senderId)}
+              className="grid h-8 w-8 place-items-center rounded-full bg-indigo-600 transition hover:bg-indigo-700 hover:shadow-md"
+            >
+              <Check className="h-3/4 w-3/4 font-semibold text-white" />
+            </button>
 
-          <button
-            onClick={() => denyFriend(request.senderId)}
-            className='w-8 h-8 bg-red-600 hover:bg-red-700 grid place-items-center rounded-full transition hover:shadow-md'>
-            <X className='font-semibold text-white w-3/4 h-3/4' />
-          </button>
-        </div>
-      ))
-      }
+            <button
+              onClick={() => denyFriend(request.senderId)}
+              className="grid h-8 w-8 place-items-center rounded-full bg-red-600 transition hover:bg-red-700 hover:shadow-md"
+            >
+              <X className="h-3/4 w-3/4 font-semibold text-white" />
+            </button>
+          </div>
+        ))
+      )}
     </>
   )
 }

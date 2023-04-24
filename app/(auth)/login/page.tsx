@@ -1,11 +1,12 @@
-'use client'
+"use client"
 
-import { FC, useState } from 'react'
-import { signIn } from 'next-auth/react'
-import { buttonVariants } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
-import { Loader2, Github, Send, Chrome } from 'lucide-react'
-import { toast } from 'react-hot-toast'
+import { FC, useState } from "react"
+import { Chrome, Github, Loader2, Send } from "lucide-react"
+import { signIn } from "next-auth/react"
+import { toast } from "react-hot-toast"
+
+import { cn } from "@/lib/utils"
+import { buttonVariants } from "@/components/ui/button"
 
 const Page: FC = () => {
   const [isGitHubLoading, setIsGitHubLoading] = useState<boolean>(false)
@@ -42,15 +43,15 @@ const Page: FC = () => {
 
   return (
     <>
-      <div className='flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
-        <div className='w-full flex flex-col items-center max-w-md space-y-8'>
-          <div className='flex flex-col items-center gap-8'>
-            <Send className='h-16 w-16' />
-            <h2 className='mt-6 text-center text-3xl font-bold tracking-tight text-gray-900'>
+      <div className="flex min-h-full items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+        <div className="flex w-full max-w-md flex-col items-center space-y-8">
+          <div className="flex flex-col items-center gap-8">
+            <Send className="h-16 w-16" />
+            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
               Chat
             </h2>
           </div>
-           <button
+          <button
             type="button"
             className={cn(buttonVariants({ variant: "default" }))}
             onClick={githubLogin}
@@ -76,7 +77,6 @@ const Page: FC = () => {
             )}{" "}
             Sign In with Google
           </button>
-          
         </div>
       </div>
     </>

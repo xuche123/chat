@@ -1,9 +1,10 @@
+import { fetchRedis } from "@/helpers/redis"
+import { UpstashRedisAdapter } from "@next-auth/upstash-redis-adapter"
 import { NextAuthOptions, User } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
+
 import { db } from "@/lib/db"
-import { UpstashRedisAdapter } from "@next-auth/upstash-redis-adapter"
-import { fetchRedis } from "@/helpers/redis"
 
 export const authOptions: NextAuthOptions = {
   adapter: UpstashRedisAdapter(db),
@@ -35,7 +36,9 @@ export const authOptions: NextAuthOptions = {
       return session
     },
     async jwt({ token, user }) {
-      const dbUserResult = (await fetchRedis('get', `user:${token.id}`)) as string | null
+      const dbUserResult = (await fetchRedis("get", `user:${token.id}`)) as
+        | string
+        | null
 
       if (!dbUserResult) {
         token.id = user?.id
@@ -59,7 +62,7 @@ export const authOptions: NextAuthOptions = {
       }
     },
     redirect() {
-      return '/dashboard'
+      return "/dashboard"
     },
-  }, 
+  },
 }

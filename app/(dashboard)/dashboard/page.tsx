@@ -1,14 +1,13 @@
-import { FC } from 'react'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import { FC } from "react"
+import { getServerSession } from "next-auth"
 
-interface pageProps {
-  
-}
+import { authOptions } from "@/lib/auth"
 
-const page = async ({ }) => {
+interface pageProps {}
+
+const page = async ({}) => {
   const session = await getServerSession(authOptions)
-  return <div className='text-5xl text-center'>{session?.user.email}</div>
+  return <div className="text-center text-5xl">{session?.user.email}</div>
 }
 
 export default page
