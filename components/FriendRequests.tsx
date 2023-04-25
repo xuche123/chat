@@ -67,7 +67,7 @@ const FriendRequests: FC<FriendRequestsProps> = ({
   return (
     <>
       {friendRequests.length === 0 ? (
-        <p className="text-sm text-zinc-500">Nothing to show here....</p>
+        <p className="text-sm text-primary">Nothing to show here....</p>
       ) : (
         friendRequests.map((request) => (
           <div key={request.senderId} className="flex items-center gap-4">
@@ -75,16 +75,16 @@ const FriendRequests: FC<FriendRequestsProps> = ({
             <p className="text-lg font-medium">{request.senderEmail}</p>
             <button
               onClick={() => acceptFriend(request.senderId)}
-              className="grid h-8 w-8 place-items-center rounded-full bg-indigo-600 transition hover:bg-indigo-700 hover:shadow-md"
+              className="grid h-8 w-8 place-items-center rounded-full bg-accent transition hover:bg-indigo-700 hover:shadow-md"
             >
-              <Check className="h-3/4 w-3/4 font-semibold text-white" />
+              <Check className="h-3/4 w-3/4 font-semibold text-primary" />
             </button>
 
             <button
               onClick={() => denyFriend(request.senderId)}
               className="grid h-8 w-8 place-items-center rounded-full bg-red-600 transition hover:bg-red-700 hover:shadow-md"
             >
-              <X className="h-3/4 w-3/4 font-semibold text-white" />
+              <X className="h-3/4 w-3/4 font-semibold text-primary" />
             </button>
           </div>
         ))

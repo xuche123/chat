@@ -86,8 +86,8 @@ const Messages: FC<MessagesProps> = ({
             </div>
             <div
               className={cn("chat-bubble", {
-                "bg-indigo-600 text-white": isCurrentUser,
-                "bg-gray-200 text-gray-900": !isCurrentUser,
+                "bg-accent text-primary": isCurrentUser,
+                "bg-secondary text-primary": !isCurrentUser,
               })}
             >
               {message.text}

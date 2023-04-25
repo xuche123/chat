@@ -89,11 +89,11 @@ const SidebarChatList: FC<SidebarChatListProps> = ({ friends, sessionId }) => {
                 sessionId,
                 friend.id
               )}`}
-              className="group flex items-center gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
+              className="group flex items-center gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-primary hover:bg-background hover:text-indigo-600"
             >
               {friend.name}
               {unseenMessagesCount > 0 ? (
-                <div className="flex h-4 w-4 items-center justify-center rounded-full bg-indigo-600 text-xs font-medium text-white">
+                <div className="flex h-4 w-4 items-center justify-center rounded-full bg-accent text-xs font-medium text-primary">
                   {unseenMessagesCount}
                 </div>
               ) : null}

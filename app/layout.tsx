@@ -1,4 +1,5 @@
 import "./globals.css"
+import { ThemeProvider } from "@/components/theme-provider"
 import Providers from "@/components/ui/Providers"
 
 export const metadata = {
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>{children}</Providers>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Providers>{children}</Providers>
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -7,10 +7,11 @@ import { getServerSession } from "next-auth"
 
 import { authOptions } from "@/lib/auth"
 import FriendRequestsCount from "@/components/FriendRequestsCount"
-import { Icon, Icons } from "@/components/Icons"
 import MobileLayout from "@/components/MobileLayout"
 import SidebarChats from "@/components/SidebarChats"
 import SignOutButton from "@/components/SignOutButton"
+import { Icon, Icons } from "@/components/icons"
+import { ModeToggle } from "@/components/mode-toggle"
 
 interface layoutProps {
   children: React.ReactNode
@@ -57,13 +58,20 @@ const layout = async ({ children }: layoutProps) => {
           unseenRequestCount={initialCount}
         />
       </div>
-      <div className="hidden h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 md:flex">
-        <Link href="/dashboard" className="flex h-16 shrink-0 items-center">
-          <Icons.Logo className="h-8 w-auto text-indigo-600" />
-        </Link>
-
+      <div className="hidden h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-border bg-background px-6 md:flex">
+        <div className="flex flex-col">
+          <Link href="/dashboard" className="flex h-16 shrink-0 items-center">
+            <Icons.Logo className="h-8 w-auto text-indigo-600" />
+          </Link>
+          <div className="flex flex-row items-center">
+            <div className="text-xs font-semibold text-primary">
+              Toggle Theme
+            </div>
+            <ModeToggle />
+          </div>
+        </div>
         {friends.length > 0 && (
-          <div className="text-xs font-semibold leading-6 text-gray-400">
+          <div className="text-xs font-semibold leading-6 text-primary">
             Your chats
           </div>
         )}
@@ -74,7 +82,7 @@ const layout = async ({ children }: layoutProps) => {
               <SidebarChats friends={friends} sessionId={session.user.id} />
             </li>
             <li>
-              <div className="text-xs font-semibold leading-6 text-gray-400">
+              <div className="text-xs font-semibold leading-6 text-primary">
                 Overview
               </div>
 
@@ -85,9 +93,9 @@ const layout = async ({ children }: layoutProps) => {
                     <li key={option.id}>
                       <Link
                         href={option.href}
-                        className="group flex gap-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
+                        className="group flex gap-3 rounded-md p-2 text-sm font-semibold leading-6 text-primary hover:bg-background hover:text-indigo-600"
                       >
-                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white text-[0.625rem] font-medium text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600">
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-[0.625rem] font-medium text-primary group-hover:border-indigo-600 group-hover:text-indigo-600">
                           <Icon className="h-4 w-4" />
                         </span>
 
@@ -106,8 +114,8 @@ const layout = async ({ children }: layoutProps) => {
             </li>
 
             <li className="-mx-6 mt-auto flex items-center">
-              <div className="flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900">
-                <div className="relative h-8 w-8 bg-gray-50">
+              <div className="flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-primary">
+                <div className="relative h-8 w-8 bg-background">
                   <Image
                     fill
                     referrerPolicy="no-referrer"
@@ -121,7 +129,7 @@ const layout = async ({ children }: layoutProps) => {
                 <span className="sr-only">Your profile</span>
                 <div className="flex flex-col">
                   <span aria-hidden="true">{session.user.name}</span>
-                  <span className="text-xs text-zinc-400" aria-hidden="true">
+                  <span className="text-xs text-primary" aria-hidden="true">
                     {session.user.email}
                   </span>
                 </div>

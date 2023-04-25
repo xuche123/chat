@@ -47,7 +47,7 @@ const Page: FC = () => {
         <div className="flex w-full max-w-md flex-col items-center space-y-8">
           <div className="flex flex-col items-center gap-8">
             <Send className="h-16 w-16" />
-            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-primary">
               Chat
             </h2>
           </div>
